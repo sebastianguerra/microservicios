@@ -68,7 +68,7 @@ spec:
     solvers:
       - http01:
           ingress:
-            ingressClassName: nginx
+            ingressClassName: traefik
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -76,9 +76,10 @@ metadata:
   name: microservices-ingress
   annotations:
     cert-manager.io/issuer: letsencrypt-issuer
-    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
   - hosts:
     - demo.inf326.nur.dev
